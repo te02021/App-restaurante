@@ -1,0 +1,54 @@
+{% extends "layouts/base.html" %} 
+{% load static %}
+{% block title %}Iniciar sesion{% endblock %}
+{% block content %}
+
+<div
+  style="
+    background-image: url('{% static 'img/imagen-reserva.webp' %}');
+    position: relative;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 0.9;
+    margin-top: -230px;
+    z-index: 1;
+  "
+></div>
+
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card p-4 shadow">
+        <h2 class="text-center mb-4">Iniciar Sesion</h2>
+        <form method="POST">
+          {% csrf_token %}
+
+          <!-- Renderizar el formulario con errores y estilos de Bootstrap -->
+          {{ form.as_p }}
+
+          <!-- Estilos para todos los mensajes de error con Bootstrap -->
+          {% if form.errors %}
+          <div class="alert alert-danger mt-3" role="alert">
+            <strong>Error:</strong> Por favor, corrige los errores en el
+            formulario.
+          </div>
+          {% endif %}
+
+          <div class="col-12 text-right">
+            <a href="{% url 'password_reset' %}" class="btn btn-link mt-3">¿Olvidaste tu contraseña?</a>
+            <button type="submit" class="btn btn-primary mt-3">
+              Iniciar Sesión
+            </button>
+          </div>
+        </form>
+      </div> 
+      <div>
+        ¿No tenés cuenta aún? <a href="{% url 'register' %}">Crear cuenta</a>.
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
